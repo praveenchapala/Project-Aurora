@@ -352,10 +352,3 @@ These are intentionally excluded from Version 1.
 - Open-source collaboration
 - Security by design
 
----
-
-# 📚 Revision History
-
-| Version | Date | Description |
-|----------|------|-------------|
-| 0.1 | 27-Jul-2026 | Initial Business Capability Model |
