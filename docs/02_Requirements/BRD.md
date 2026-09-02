@@ -306,7 +306,20 @@ Project Aurora Version 1 will be successful when:
 
 ---
 
+# 🔮 Future Scope
 
+Future versions may include:
+
+- AI Tutor
+- Live Classes
+- Mobile Applications
+- Marketplace
+- Community
+- Multi-language
+- Enterprise Edition
+- Multi-Tenant Support
+
+---
 
 # 📚 Glossary
 
