@@ -1,14 +1,4 @@
-# 📘 Business Requirements Document (BRD)
 
-> Defines the business needs, stakeholders, objectives, and high-level requirements for Project Aurora.
-
----
-
-![Status](https://img.shields.io/badge/Status-Draft-orange)
-![Version](https://img.shields.io/badge/Version-0.1-blue)
-![Phase](https://img.shields.io/badge/Phase-Business%20Analysis-purple)
-
----
 
 # 📄 Document Information
 
