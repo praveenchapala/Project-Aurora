@@ -286,3 +286,54 @@ Project Aurora Version 1 will be successful when:
 
 ---
 
+# ⚠ Constraints
+
+- Web application only.
+- Open-source development.
+- Limited initial development team.
+- Features prioritized by business value.
+
+---
+
+# 🚨 Risks
+
+| Risk | Mitigation |
+|------|------------|
+| Scope Creep | Strict backlog management |
+| Security Issues | Security-first development |
+| Low Contributors | Good documentation |
+| Performance Issues | Modular architecture |
+
+---
+
+# 🔮 Future Scope
+
+Future versions may include:
+
+- AI Tutor
+- Live Classes
+- Mobile Applications
+- Marketplace
+- Community
+- Multi-language
+- Enterprise Edition
+- Multi-Tenant Support
+
+---
+
+# 📚 Glossary
+
+| Term | Meaning |
+|------|---------|
+| BRD | Business Requirements Document |
+| SRS | Software Requirements Specification |
+| LMS | Learning Management System |
+| RBAC | Role-Based Access Control |
+
+---
+
+# 📝 Revision History
+
+| Version | Date | Description |
+|----------|------|-------------|
+| 0.1 | 27-Jul-2026 | Initial Draft |
