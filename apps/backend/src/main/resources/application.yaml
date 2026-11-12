@@ -1,11 +1,12 @@
+
 spring:
   application:
     name: aurora-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/aurora_dev
-    username: postgres
-    password: PravPost90@123
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/aurora_dev}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -29,5 +30,5 @@ logging:
     org.hibernate.SQL: INFO
 
 jwt:
-  secret: 4b0d6c0b8d89b3a3f8d5f5d0b0c2a8f1d4c7e9a2b6f1c3d8e5f7a9b1c2d3e4f5
-  expiration: 86400000
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:86400000}

@@ -1,3 +1,4 @@
+
 package com.projectaurora.backend.security;
 
 import java.util.Date;
@@ -33,13 +34,9 @@ public class JwtService {
             String token,
             Function<Claims, T> claimsResolver) {
 
-        final Claims claims = extractAllClaims(token);
+        Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-
-    // ==========================================================
-    // Generate Token using UserDetails
-    // ==========================================================
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(userDetails.getUsername());
@@ -51,10 +48,6 @@ public class JwtService {
 
         return generateToken(extraClaims, userDetails.getUsername());
     }
-
-    // ==========================================================
-    // Generate Token using Username (Email)
-    // ==========================================================
 
     public String generateToken(String username) {
         return generateToken(new HashMap<>(), username);
@@ -68,35 +61,25 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(username)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .expiration(new Date(
+                        System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSigningKey())
                 .compact();
     }
-
-    // ==========================================================
-    // Validate Token
-    // ==========================================================
 
     public boolean isTokenValid(
             String token,
             UserDetails userDetails) {
 
-        final String username = extractUsername(token);
+        Claims claims = extractAllClaims(token);
 
-        return username.equals(userDetails.getUsername())
-                && !isTokenExpired(token);
-    }
+        String username = claims.getSubject();
+        Date expiration = claims.getExpiration();
 
-    // ==========================================================
-    // Private Helper Methods
-    // ==========================================================
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+        return username != null
+                && username.equals(userDetails.getUsername())
+                && expiration != null
+                && expiration.after(new Date());
     }
 
     private Claims extractAllClaims(String token) {
