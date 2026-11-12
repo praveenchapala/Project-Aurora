@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -65,6 +66,12 @@
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
+        <!-- Jackson JSON Support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jackson</artifactId>
+        </dependency>
+
         <!-- Flyway PostgreSQL Support -->
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -93,9 +100,8 @@
             <optional>true</optional>
         </dependency>
 
-
         <!-- ============================== -->
-        <!-- JWT Dependencies                -->
+        <!-- JWT Dependencies               -->
         <!-- ============================== -->
 
         <!-- JJWT API -->
@@ -121,9 +127,8 @@
             <scope>runtime</scope>
         </dependency>
 
-
         <!-- ============================== -->
-        <!-- Test Dependencies               -->
+        <!-- Test Dependencies              -->
         <!-- ============================== -->
 
         <!-- Actuator Test -->
@@ -177,13 +182,11 @@
 
     </dependencies>
 
-
     <!-- ============================== -->
     <!-- Build Configuration             -->
     <!-- ============================== -->
 
     <build>
-
         <plugins>
 
             <!-- Spring Boot Maven Plugin -->
@@ -201,7 +204,6 @@
                 </configuration>
             </plugin>
 
-
             <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -213,41 +215,32 @@
                     <execution>
                         <id>default-compile</id>
                         <phase>compile</phase>
-
                         <goals>
                             <goal>compile</goal>
                         </goals>
-
                         <configuration>
                             <annotationProcessorPaths>
-
                                 <path>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
                                 </path>
-
                             </annotationProcessorPaths>
                         </configuration>
                     </execution>
-
 
                     <!-- Test Compilation -->
                     <execution>
                         <id>default-testCompile</id>
                         <phase>test-compile</phase>
-
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
-
                         <configuration>
                             <annotationProcessorPaths>
-
                                 <path>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
                                 </path>
-
                             </annotationProcessorPaths>
                         </configuration>
                     </execution>
@@ -256,7 +249,6 @@
             </plugin>
 
         </plugins>
-
     </build>
 
 </project>
