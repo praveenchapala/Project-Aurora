@@ -3,6 +3,7 @@ package com.projectaurora.backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -53,10 +54,11 @@ public class SecurityConfig {
                 // Authorization rules
                 .authorizeHttpRequests(authorize -> authorize
 
-                        // Authentication endpoints are public
-                        .requestMatchers("/auth/**").permitAll()
+                        // Public authentication endpoints
+                        .requestMatchers("/auth/**")
+                        .permitAll()
 
-                        // Role-based authorization
+                        // Existing role-based test endpoints
                         .requestMatchers("/api/test/student")
                         .hasRole("STUDENT")
 
@@ -66,14 +68,50 @@ public class SecurityConfig {
                         .requestMatchers("/api/test/admin")
                         .hasRole("ADMIN")
 
+                        // Course creation: INSTRUCTOR only
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/courses",
+                                "/api/courses/")
+                        .hasRole("INSTRUCTOR")
+
+                        // Instructor's own courses: INSTRUCTOR only
+                        // Must appear before the general GET matcher
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/courses/mine")
+                        .hasRole("INSTRUCTOR")
+
+                        // Browse courses and view individual courses
+                        // Any authenticated user
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/courses",
+                                "/api/courses/",
+                                "/api/courses/**")
+                        .authenticated()
+
+                        // Update courses: INSTRUCTOR or ADMIN
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/courses/**")
+                        .hasAnyRole("INSTRUCTOR", "ADMIN")
+
+                        // Publish courses: INSTRUCTOR or ADMIN
+                        .requestMatchers(
+                                HttpMethod.PATCH,
+                                "/api/courses/*/publish")
+                        .hasAnyRole("INSTRUCTOR", "ADMIN")
+
                         // Everything else requires authentication
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 // Authentication provider
                 .authenticationProvider(authenticationProvider())
 
-                // JWT filter must run before Spring's username/password filter
+                // JWT authentication filter
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class);

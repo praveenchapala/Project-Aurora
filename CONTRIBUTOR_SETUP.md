@@ -7,7 +7,7 @@ This guide walks you through setting up **Project Aurora**'s backend on your loc
 ## 📖 Table of Contents
 
 1. [Prerequisites](#1-prerequisites)
-2. [Install Java 21](#2-install-java-21)
+2. [Install Java 25](#2-install-java-25)
 3. [Install Git](#3-install-git)
 4. [Install PostgreSQL](#4-install-postgresql)
 5. [Clone the Repository](#5-clone-the-repository)
@@ -32,13 +32,13 @@ Before you begin, make sure you have:
 
 ---
 
-## 2. Install Java 21
+## 2. Install Java 25
 
-Project Aurora's backend runs on **Java 21**.
+Project Aurora's backend runs on **Java 25**.
 
 ### Windows
 
-1. Download the Java 21 installer (Eclipse Temurin is recommended) from [https://adoptium.net](https://adoptium.net).
+1. Download the Java 25 installer (Eclipse Temurin is recommended) from [https://adoptium.net](https://adoptium.net).
 2. Run the installer and follow the setup wizard. Make sure **"Set JAVA_HOME variable"** is checked during installation.
 3. Verify the installation:
 
@@ -281,7 +281,7 @@ If you see this, your local backend setup is complete! 🎉
 
 | Issue | Possible Cause | Fix |
 |---|---|---|
-| `java: command not found` | Java not installed or not on PATH | Reinstall Java 21 and ensure `JAVA_HOME` is set |
+| `java: command not found` | Java not installed or not on PATH | Reinstall Java 25 and ensure `JAVA_HOME` is set |
 | `psql: command not found` | PostgreSQL `bin` not on PATH | Add PostgreSQL's `bin` directory to `PATH` |
 | `FATAL: password authentication failed` | Wrong password in `application.yaml` | Double-check your `postgres` user password |
 | `Connection refused` on port 5432 | PostgreSQL service not running | Start the PostgreSQL service (Windows Services app, or `brew services start` / `systemctl start`) |
