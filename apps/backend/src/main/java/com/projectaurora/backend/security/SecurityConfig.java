@@ -76,11 +76,30 @@ public class SecurityConfig {
                         .hasRole("INSTRUCTOR")
 
                         // Instructor's own courses: INSTRUCTOR only
-                        // Must appear before the general GET matcher
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/courses/mine")
                         .hasRole("INSTRUCTOR")
+
+                        // Enroll in a course: STUDENT only
+                        // Must appear before the general course GET rule
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/courses/*/enroll")
+                        .hasRole("STUDENT")
+
+                        // Get the authenticated student's enrollments
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/enrollments/me")
+                        .hasRole("STUDENT")
+
+                        // Check enrollment status: STUDENT only
+                        // Must appear before /api/courses/**
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/courses/*/enrollment")
+                        .hasRole("STUDENT")
 
                         // Browse courses and view individual courses
                         // Any authenticated user

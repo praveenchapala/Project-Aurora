@@ -28,7 +28,9 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(response);
     }
 
     // 2. Duplicate course — HTTP 409
@@ -42,10 +44,28 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(response);
     }
 
-    // 3. Invalid credentials — HTTP 401
+    // 3. Duplicate enrollment — HTTP 409
+    @ExceptionHandler(DuplicateEnrollmentException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDuplicateEnrollment(
+            DuplicateEnrollmentException ex) {
+
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .success(false)
+                .message(ex.getMessage())
+                .data(null)
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(response);
+    }
+
+    // 4. Invalid credentials — HTTP 401
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ApiResponse<Void>> handleInvalidCredentials(
             InvalidCredentialsException ex) {
@@ -56,10 +76,12 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(response);
     }
 
-    // 4. Access denied — HTTP 403
+    // 5. Access denied — HTTP 403
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(
             AccessDeniedException ex) {
@@ -70,10 +92,12 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(response);
     }
 
-    // 5. Resource not found — HTTP 404
+    // 6. Resource not found — HTTP 404
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleResourceNotFound(
             ResourceNotFoundException ex) {
@@ -84,10 +108,28 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
     }
 
-    // 6. Request validation failure — HTTP 400
+    // 7. Course is not published — HTTP 400
+    @ExceptionHandler(CourseNotPublishedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCourseNotPublished(
+            CourseNotPublishedException ex) {
+
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .success(false)
+                .message(ex.getMessage())
+                .data(null)
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
+    // 8. Request validation failure — HTTP 400
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidationErrors(
             MethodArgumentNotValidException ex) {
@@ -95,7 +137,9 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .map(error ->
+                        error.getField() + ": " +
+                        error.getDefaultMessage())
                 .distinct()
                 .collect(Collectors.joining("; "));
 
@@ -109,10 +153,12 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
-    // 7. Malformed JSON or unreadable request body — HTTP 400
+    // 9. Malformed JSON — HTTP 400
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleUnreadableRequest(
             HttpMessageNotReadableException ex) {
@@ -123,10 +169,12 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
-    // 8. HTTP status exceptions — preserve the original status code
+    // 10. HTTP status exceptions — preserve original status
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(
             ResponseStatusException ex) {
@@ -141,10 +189,12 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(ex.getStatusCode()).body(response);
+        return ResponseEntity
+                .status(ex.getStatusCode())
+                .body(response);
     }
 
-    // 9. All other unexpected exceptions — HTTP 500
+    // 11. Unexpected exceptions — HTTP 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(
             Exception ex) {
@@ -155,6 +205,8 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(response);
     }
 }
