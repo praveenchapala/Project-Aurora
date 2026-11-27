@@ -1,3 +1,4 @@
+
 package com.projectaurora.backend.security;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -10,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+import com.projectaurora.backend.BackendApplication;
+
+@SpringBootTest(classes = BackendApplication.class)
 @AutoConfigureMockMvc
 class SecurityAuthorizationTest {
 
